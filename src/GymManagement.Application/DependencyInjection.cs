@@ -10,7 +10,7 @@ public static class DependencyInjection
         {
             options.RegisterServicesFromAssemblyContaining(typeof(DependencyInjection));
         });
-        
+
         return services;
     }
 }
