@@ -1,3 +1,3 @@
 namespace GymManagement.Contracts.Subscriptions;
 
-public record CreateSubscriptionRequest(SubscriptionType SubscriptionType, Guid Admin);
+public record CreateSubscriptionRequest(SubscriptionType SubscriptionType, Guid AdminId);
