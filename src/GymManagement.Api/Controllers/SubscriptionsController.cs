@@ -15,20 +15,18 @@ public class SubscriptionsController : ControllerBase
     {
         _mediator = mediator;
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> CreateSubscription(CreateSubscriptionRequest request)
     {
         var command = new CreateSubscriptionCommand(
-            request.SubscriptionType.ToString(), 
+            request.SubscriptionType.ToString(),
             request.AdminId);
-        
-        var subscriptionId = await _mediator.Send(command);
-        
-        var response = new SubscriptionResponse(
-            subscriptionId, 
-            request.SubscriptionType);
-        
-        return Ok(response);
+
+        var createSubscriptionResult = await _mediator.Send(command);
+
+        return createSubscriptionResult.MatchFirst(
+            guid => Ok(new SubscriptionResponse(guid, request.SubscriptionType)),
+            error => Problem());
     }
 }
