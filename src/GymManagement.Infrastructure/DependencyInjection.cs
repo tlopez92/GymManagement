@@ -16,6 +16,7 @@ public static class DependencyInjection
         });
         
         services.AddScoped<ISubscriptionsRepository, SubscriptionsRepository>();
+        services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<GymManagementDbContext>());
         return services;
     }
 }
