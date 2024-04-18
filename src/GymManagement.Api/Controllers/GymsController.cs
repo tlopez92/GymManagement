@@ -9,9 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagement.Api.Controllers;
 
-[ApiController]
 [Route("subscriptions/{subscriptionId:guid}/gyms")]
-public class GymsController : ControllerBase
+public class GymsController : ApiController
 {
     private readonly ISender _mediator;
 
@@ -29,7 +28,7 @@ public class GymsController : ControllerBase
 
         return getGymResult.Match(
             gym => Ok(new GymResponse(gym.Id, gym.Name)),
-            _ => Problem());
+            Problem);
     }
 
     [HttpGet]
@@ -41,7 +40,7 @@ public class GymsController : ControllerBase
 
         return listGymsResult.Match(
             gyms => Ok(gyms.ConvertAll(gym => new GymResponse(gym.Id, gym.Name))),
-            _ => Problem());
+            Problem);
     }
 
     [HttpPost]
@@ -56,7 +55,7 @@ public class GymsController : ControllerBase
                 nameof(GetGym),
                 new { subscriptionId, GymId = gym.Id },
                 new GymResponse(gym.Id, gym.Name)),
-            _ => Problem());
+            Problem);
     }
     
     [HttpPost("{gymId:guid}/trainers")]
@@ -68,7 +67,7 @@ public class GymsController : ControllerBase
 
         return addTrainerResult.MatchFirst<IActionResult>(
             success => Ok(),
-            error => Problem());
+            Problem);
     }
     
     [HttpDelete("{gymId:guid}")]
@@ -77,9 +76,9 @@ public class GymsController : ControllerBase
         var command = new DeleteGymCommand(subscriptionId, gymId);
         
         var deleteGymResult = await _mediator.Send(command);
-        
+
         return deleteGymResult.Match<IActionResult>(
             _ => NoContent(),
-            _ => Problem());
+            Problem);
     }
 }
