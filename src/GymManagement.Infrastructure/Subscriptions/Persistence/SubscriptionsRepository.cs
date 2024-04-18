@@ -21,12 +21,16 @@ public class SubscriptionsRepository : ISubscriptionsRepository
 
     public async Task<bool> ExistsAsync(Guid subscriptionId)
     {
-        throw new NotImplementedException();
+        return await _dbContext.Subscriptions
+           .AsNoTracking()
+           .AnyAsync(subscription => subscription.Id == subscriptionId);
     }
 
     public async Task<Subscription?> GetByAdminIdAsync(Guid adminId)
     {
-        throw new NotImplementedException();
+        return await _dbContext.Subscriptions
+           .AsNoTracking()
+           .FirstOrDefaultAsync(subscription => subscription.AdminId == adminId);
     }
 
     public async Task<Subscription?> GetByIdAsync(Guid subscriptionId)
@@ -36,16 +40,18 @@ public class SubscriptionsRepository : ISubscriptionsRepository
 
     public async Task<List<Subscription>> ListAsync()
     {
-        throw new NotImplementedException();
+        return await _dbContext.Subscriptions.ToListAsync();
     }
 
-    public async Task RemoveSubscriptionAsync(Subscription subscription)
+    public Task RemoveSubscriptionAsync(Subscription subscription)
     {
-        throw new NotImplementedException();
+        _dbContext.Remove(subscription);
+        return Task.CompletedTask;
     }
 
-    public async Task UpdateAsync(Subscription subscription)
+    public Task UpdateAsync(Subscription subscription)
     {
-        throw new NotImplementedException();
+        _dbContext.Subscriptions.Update(subscription);
+        return Task.CompletedTask;
     }
 }
