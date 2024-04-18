@@ -4,7 +4,7 @@ public class Room
 {
     public Guid Id { get; }
     public string Name { get; } = null!;
-    public Guid GymdId { get; }
+    public Guid GymId { get; }
     public int MaxDailySessions { get; }
 
     public Room(
@@ -14,7 +14,7 @@ public class Room
         Guid? id = null)
     {
         Name = name;
-        GymdId = gymId;
+        GymId = gymId;
         MaxDailySessions = maxDailySessions;
         Id = id ?? Guid.NewGuid();
     }
