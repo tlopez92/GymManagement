@@ -33,9 +33,7 @@ public class Gym
 
         if (_roomIds.Count >= _maxRooms)
         {
-            return  Error.Validation(
-                "Room.CannotHaveMoreRoomsThanSubscriptionAllows",
-                "A gym cannot have more rooms than the subscription allows");
+            return GymErrors.CannotHaveMoreRoomsThanSubscriptionAllows;
         }
 
         _roomIds.Add(room.Id);
