@@ -19,8 +19,33 @@ public class SubscriptionsRepository : ISubscriptionsRepository
         await _dbContext.Subscriptions.AddAsync(subscription);
     }
 
+    public async Task<bool> ExistsAsync(Guid subscriptionId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<Subscription?> GetByAdminIdAsync(Guid adminId)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<Subscription?> GetByIdAsync(Guid subscriptionId)
     {
         return await _dbContext.Subscriptions.FindAsync(subscriptionId);
+    }
+
+    public async Task<List<Subscription>> ListAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task RemoveSubscriptionAsync(Subscription subscription)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task UpdateAsync(Subscription subscription)
+    {
+        throw new NotImplementedException();
     }
 }
