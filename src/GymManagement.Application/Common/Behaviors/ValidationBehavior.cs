@@ -1,6 +1,5 @@
 using ErrorOr;
 using FluentValidation;
-using GymManagement.Application.Gyms.Queries.CreateGym;
 using MediatR;
 
 namespace GymManagement.Application.Common.Behaviors;
