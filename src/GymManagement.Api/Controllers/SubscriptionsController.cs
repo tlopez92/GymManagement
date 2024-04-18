@@ -1,4 +1,5 @@
 using GymManagement.Application.Subscriptions.Commands.CreateSubscription;
+using GymManagement.Application.Subscriptions.Commands.DeleteSubscription;
 using GymManagement.Application.Subscriptions.Queries.GetSubscription;
 using GymManagement.Contracts.Subscriptions;
 using Microsoft.AspNetCore.Mvc;
@@ -53,9 +54,21 @@ public class SubscriptionsController : ControllerBase
         
         return getSubscriptionResult.MatchFirst(
             subscription => Ok(new SubscriptionResponse(
-                subscription.Id, 
-                Enum.Parse<SubscriptionType>(subscription.SubscriptionType.Name))),
+                subscription.Id,
+                ToDto(subscription.SubscriptionType))),
             error => Problem());
+    }
+
+    [HttpDelete("{subscriptionId:guid}")]
+    public async Task<IActionResult> DeleteSubscription(Guid subscriptionId)
+    {
+        var command = new DeleteSubscriptionCommand(subscriptionId);
+        
+        var deleteSubscriptionResult = await _mediator.Send(command);
+        
+        return deleteSubscriptionResult.Match<IActionResult>(
+            _ => NoContent(),
+            _ => Problem());
     }
     
     private static SubscriptionType ToDto(DomainSubscriptionType subscriptionType)
