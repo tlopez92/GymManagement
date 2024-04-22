@@ -12,7 +12,7 @@ public class SqlServerTestDatabase : IDisposable
     {
         var testDatabase = new SqlServerTestDatabase(
             @"Server=tcp:localhost,1433;
-                            Initial Catalog=gym_management;
+                            Initial Catalog=gym_management_tests;
                             Persist Security Info=False;
                             User ID=sa;
                             Password=Password123;

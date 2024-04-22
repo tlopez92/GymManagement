@@ -30,6 +30,23 @@ public class CreateGymTests(MediatorFactory mediatorFactory)
         createGymResult.Value.SubscriptionId.Should().Be(subscription.Id);
     }
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(200)]
+    public async Task CreateGym_WhenCommandContainsInvalidData_ShouldReturnValidationError(int gymLength)
+    {
+        //  Arrange
+        string gymName = new string('a', gymLength);
+        var createGymCommand = GymCommandFactory.CreateCreateGymCommand(name: gymName);
+        
+        // Act
+        var createGymResult = await _mediator.Send(createGymCommand);
+        
+        createGymResult.IsError.Should().BeTrue();
+        createGymResult.FirstError.Code.Should().Be("Name");
+    }
+
     private async Task<Subscription> CreateSubscription()
     {
         // 1. Create a CreateSubscriptionCommand
