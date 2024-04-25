@@ -1,7 +1,6 @@
-using ErrorOr;
 using GymManagement.Application.Gyms.Commands.AddTrainer;
+using GymManagement.Application.Gyms.Commands.CreateGym;
 using GymManagement.Application.Gyms.Commands.DeleteGym;
-using GymManagement.Application.Gyms.Queries.CreateGym;
 using GymManagement.Application.Gyms.Queries.GetGym;
 using GymManagement.Application.Gyms.Queries.ListGyms;
 using GymManagement.Contracts.Gyms;

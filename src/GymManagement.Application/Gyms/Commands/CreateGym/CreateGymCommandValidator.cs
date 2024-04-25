@@ -1,4 +1,5 @@
 using FluentValidation;
+using GymManagement.Application.Gyms.Commands.CreateGym;
 
 namespace GymManagement.Application.Gyms.Queries.CreateGym;
 

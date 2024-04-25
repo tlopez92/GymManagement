@@ -3,7 +3,7 @@ using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
 using GymManagement.Application.Common.Behaviors;
-using GymManagement.Application.Gyms.Queries.CreateGym;
+using GymManagement.Application.Gyms.Commands.CreateGym;
 using GymManagement.Domain.Gyms;
 using MediatR;
 using NSubstitute;

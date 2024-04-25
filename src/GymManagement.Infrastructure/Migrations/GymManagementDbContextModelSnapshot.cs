@@ -98,6 +98,43 @@ namespace GymManagement.Infrastructure.Migrations
 
                     b.ToTable("Subscriptions");
                 });
+
+            modelBuilder.Entity("GymManagement.Domain.Users.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AdminId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ParticipantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TrainerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("_passwordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("PasswordHash");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
 #pragma warning restore 612, 618
         }
     }

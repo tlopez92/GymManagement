@@ -41,9 +41,9 @@ public class SqlServerTestDatabase : IDisposable
             var tableName = table.GetTableName();
             if (tableName != "Admins")
             {
-                context.Database.ExecuteSql($"DELETE FROM {tableName}");
+                context.Database.ExecuteSqlRaw($"DELETE FROM {tableName}");
             }
-            context.Database.ExecuteSql($"UPDATE Admins SET SubscriptionId = null");
+            context.Database.ExecuteSqlRaw($"UPDATE Admins SET SubscriptionId = null");
         }
         
         context.SaveChanges();

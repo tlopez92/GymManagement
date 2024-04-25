@@ -12,7 +12,7 @@ namespace GymManagement.Application.SubcutaneousTests.Gyms.Commands;
 public class CreateGymTests(MediatorFactory mediatorFactory)
 {
     private readonly IMediator _mediator = mediatorFactory.CreateMediator();
-    
+
     [Fact]
     public async Task CreateGym_WhenValidCommand_ShouldCreateGym()
     {
@@ -34,28 +34,29 @@ public class CreateGymTests(MediatorFactory mediatorFactory)
     [InlineData(0)]
     [InlineData(1)]
     [InlineData(200)]
-    public async Task CreateGym_WhenCommandContainsInvalidData_ShouldReturnValidationError(int gymLength)
+    public async Task CreateGym_WhenCommandContainsInvalidData_ShouldReturnValidationError(int gymNameLength)
     {
-        //  Arrange
-        string gymName = new string('a', gymLength);
+        // Arrange
+        string gymName = new('a', gymNameLength);
         var createGymCommand = GymCommandFactory.CreateCreateGymCommand(name: gymName);
-        
+
         // Act
-        var createGymResult = await _mediator.Send(createGymCommand);
-        
-        createGymResult.IsError.Should().BeTrue();
-        createGymResult.FirstError.Code.Should().Be("Name");
+        var result = await _mediator.Send(createGymCommand);
+
+        // Assert
+        result.IsError.Should().BeTrue();
+        result.FirstError.Code.Should().Be("Name");
     }
 
     private async Task<Subscription> CreateSubscription()
     {
-        // 1. Create a CreateSubscriptionCommand
+        //  1. Create a CreateSubscriptionCommand
         var createSubscriptionCommand = SubscriptionCommandFactory.CreateCreateSubscriptionCommand();
-        
-        // 2. Sending it to MediatR
+
+        //  2. Sending it to MediatR
         var result = await _mediator.Send(createSubscriptionCommand);
-        
-        // 3. Making sure it was created successfully
+
+        //  3. Making sure it was created successfully
         result.IsError.Should().BeFalse();
         return result.Value;
     }
