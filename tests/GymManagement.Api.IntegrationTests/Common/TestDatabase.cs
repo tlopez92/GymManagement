@@ -2,12 +2,12 @@ using GymManagement.Infrastructure.Common.Persistence;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace GymManagement.Application.SubcutaneousTests.Common;
+namespace GymManagement.Api.IntegrationTests.Common;
 
 public class SqlServerTestDatabase : IDisposable
 {
     public SqlConnection Connection { get; }
-
+    
     public static SqlServerTestDatabase CreateAndInitialize()
     {
         var testDatabase = new SqlServerTestDatabase(
@@ -41,9 +41,9 @@ public class SqlServerTestDatabase : IDisposable
             var tableName = table.GetTableName();
             if (tableName != "Admins")
             {
-                context.Database.ExecuteSql($"DELETE FROM {tableName}");
+                context.Database.ExecuteSqlRaw($"DELETE FROM {tableName}");
             }
-            context.Database.ExecuteSql($"UPDATE Admins SET SubscriptionId = null");
+            context.Database.ExecuteSqlRaw($"UPDATE Admins SET SubscriptionId = null");
         }
         
         context.SaveChanges();
